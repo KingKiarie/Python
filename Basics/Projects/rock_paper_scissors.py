@@ -17,7 +17,7 @@ def online_round():
     print(f"You chose: {player_option}")
 
     if player_option == computer_option:
-        return "It's a tie!", 0
+        return "draw", 0
     elif(player_option == "rock" and computer_option == "scissors"):
        return "You win this round!", 1
     elif(player_option == "scissors" and computer_option == "paper"):
@@ -32,7 +32,7 @@ def game():
     user_score = 0
     rival_score = 0
 
-    for _ in range(rounds):
+    for t in range(rounds):
         result, score = online_round()
         print(result)
         user_score += score
@@ -50,5 +50,5 @@ def game():
             print("Computer won the game!")
             break
 
-if __name__ == "__game__":
+
     game()

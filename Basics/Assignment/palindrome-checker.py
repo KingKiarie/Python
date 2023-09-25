@@ -9,4 +9,4 @@ def is_palindrome(input_str):
         print(input_str,'is not a palindrome try again.')
 
 
-is_palindrome('nonc')
+is_palindrome('non')
