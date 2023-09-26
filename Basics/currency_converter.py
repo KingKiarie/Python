@@ -1,7 +1,7 @@
 # currency converter
 
 amount =input('Enter the amount of cash you want to be converted:  ')
-rate=input('Select conversion currency: ').lower()
+rate=str(input('Enter conversion unit:')).lower()
 
 def converter(amount,currency,rate):
     currency = ['USD','KSH','POUND']
