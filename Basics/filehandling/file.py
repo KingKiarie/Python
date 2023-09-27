@@ -1,27 +1,22 @@
-# lines =[1,2,3,4,5,6,7,8,9]
-
-# with open('text.txt','r')as textfile:
-#     textfile.writelines(lines)
-
 # Write a python program that reads the words.txt file and prints out all the palindromes in the file to a palindromes.txt file
 
-# reading a file
+#basic reading a file 
 file = open('words.txt', 'r' )
 content = file.read()
 
-# print(content)
+ print(content)# reads the file
 
-# palindrome checker functions
+#basic palindrome checker function
 
 def is_palindrome():
     string = input('Enter your words:')
 
-    if string == string [::-1]:
+    if string == string [::-1]:#this is a reverse function to tell if the word while inverted is the same
         print(string,'is a palindrome')
     else:
         print(string, 'is not  palindrome')
 
-# is_palindrome()
+ is_palindrome()
 
 # program that checks if words in a file are palindromes
 # attempt 1
@@ -38,11 +33,13 @@ def is_palindrome():
 # find_palindrome()
 
 # attempt2
-
+# this function has two parameters where fileA is where we read the data and fileB is the output to the palindrome words
 def find_palindome(fileA, fileB):
     with open('words.txt','r') as fileA:
         file = fileA.read()
+       #.split() divides the words into single letters 
         x = file.split()
+        #create a palindrome array where it will check for every letter in each word that has been split check if its reverse is equal to it while inverted
         palindrome = [line for line in x if line == line[::-1]]
     
     with open('palindrome.txt','w') as fileB:
