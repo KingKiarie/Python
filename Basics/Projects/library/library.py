@@ -1,53 +1,79 @@
-# Create a program that reads in a CSV file containing information about books (title, author, ISBN, and price), and then allows the user to search for books by author, ISBN, or price range.
-# Step 1: Create a function that takes a file name as an argument and reads in the contents of the file as a list of dictionaries, with each dictionary representing a book and containing keys for title, author, ISBN, and price.
-# Step 2: Create a function that takes an author's name as an argument and returns a list of all books written by that author.
-# Step 3: Create a function that takes an ISBN as an argument and returns the title and price of the book with that ISBN.
-# Step 4: Create a function that takes a minimum and maximum price as arguments and returns a list of all books within that price range.
-# Step 5: Use the functions from steps 2-4 in a user interface that allows the user to search for books by author, ISBN, or price range.
-# Bonus: Add the ability for the user to add new books to the CSV file.
-
 import csv
 
-def open_file('library.csv'):
-    books = []
-    with open('library.csv','r')as lib1:
-        user = csv.DictReader(lib1)
-        for row in user:
-            books.append(row)
-    return books
-def search_author(books,author):
-    results = []
-    for book in books:
-        if book['author'] == author:
-            results.append(book)
-    return results
-def search_isbn(books,isbn):
+def read_lib(library):
+    with open(library) as file:
+        reader = csv.DictReader(file)
+        return [row for row in reader]
+
+def search_author(books, author):
+    return [book for book in books if book['author'] == author]
+
+def search_by_isbn(books, isbn):
     for book in books:
         if book['ISBN'] == isbn:
-            return book['title'],book['price'],book['author']
-    return None, None
-def search_price(books,price):
-    results = []
-    for book in books:
-        price = float(book['price'])
-        return results.append(book)
-    return results
-def input():
+            return {'title': book['title'], 'price': book['price']}
+    return None
 
+def search_books_by_price_range(books, min_price, max_price):
+    return [book for book in books if min_price <= float(book['price']) <= max_price]
+
+def add_book_to_csv(library, book):
+    with open(library, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(book)
+
+if __name__ == '__main__':
     library = 'library.csv'
-
-    books = read_csv(library)
+    books = read_lib(library)
 
     while True:
-        print('Search type:')
-        print('1. Author')
-        print('2.ISBN')
-        print('Price')
+        print('1. Search books by author')
+        print('2. Search book by ISBN')
+        print('3. Search books by price range')
+        print('4. Add new book')
+        print('5. Exit')
 
-        input = ('Enter your choice:')
+        choice = input('Enter your choice: ')
 
-        if input
-    
+        if choice == '1':
+            author = input('Enter author name: ')
+            result = search_author(books, author)
+            if result:
+                print(f'Books written by {author}:')
+                for book in result:
+                    print(f'{book["title"]} ({book["ISBN"]}) - {book["price"]}')
+            else:
+                print(f'No books found written by {author}')
 
+        elif choice == '2':
+            isbn = input('Enter ISBN: ')
+            result = search_by_isbn(books, isbn)
+            if result:
+                print(f'Title: {result["title"]}, Price: {result["price"]}')
+            else:
+                print(f'No book found with ISBN {isbn}')
 
+        elif choice == '3':
+            min_price = float(input('Enter minimum price: '))
+            max_price = float(input('Enter maximum price: '))
+            result = search_books_by_price_range(books, min_price, max_price)
+            if result:
+                print(f'Books within price range {min_price} to {max_price}:')
+                for book in result:
+                    print(f'{book["title"]} ({book["ISBN"]}) - {book["price"]}')
+            else:
+                print(f'No books found within price range {min_price} to {max_price}')
 
+        elif choice == '4':
+            title = input('Enter title: ')
+            author = input('Enter author: ')
+            isbn = input('Enter ISBN: ')
+            price = input('Enter price: ')
+            add_book_to_csv(library, [title, author, isbn, price])
+            print(f'Book added successfully')
+
+        elif choice == '5':
+            break
+
+        else:
+            print('Invalid choice')
