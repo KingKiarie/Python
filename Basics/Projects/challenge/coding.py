@@ -13,8 +13,6 @@ def replace_email_address(string, replacement):
     with open('rep.csv', 'w') as chain:
         return re.sub(email_pattern, replacement, string)
 
-# Test the functions with the provided example
-
 string = input("Please contact info@example.com for assistance. Phone: (123) 456-7890 or (111) 222-3333")
 print(extract_phone_numbers(string))  
 print(extract_email_address(string))  
