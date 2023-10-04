@@ -31,7 +31,7 @@ if __name__ == '__main__':
         print('2. Search book by ISBN')
         print('3. Search books by price range')
         print('4. Add new book')
-        print('5. Exit')
+        print('5. quit')
 
         choice = input('Enter your choice: ')
 
